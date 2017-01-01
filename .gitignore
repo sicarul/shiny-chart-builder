@@ -1,0 +1,8 @@
+/config.R
+/update_samples.R
+/shiny_bookmarks/
+.RData
+.Rhistory
+schema.rda
+README_files
+.Rproj.user
