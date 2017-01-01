@@ -15,7 +15,7 @@ The way you should use this app is to build your chart with the `Sample mode`, a
 
 ![Scatterplot](images/scatter.gif)
 
-![Scatterplot](images/line.gif)
+![Linechart](images/line.gif)
 
 Configuration
 -------------
