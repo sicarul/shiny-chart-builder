@@ -1,5 +1,6 @@
 library(ggplot2)
 library(lubridate)
+library(lazyeval)
 source('config.R')
 
 shinyServer(function(input, output, session) {
