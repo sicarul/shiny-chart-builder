@@ -17,11 +17,12 @@ WHERE schemaname = 'public'
 
 allColumns$type = case_when(
   allColumns$type == 'integer' ~ 'integer',
+  allColumns$type == 'bigint' ~ 'integer',
   startsWith(allColumns$type, 'numeric') ~ 'numeric',
   startsWith(allColumns$type, 'character') ~ 'character',
   allColumns$type == 'boolean' ~ 'boolean',
   allColumns$type == 'date' ~ 'date',
-  startsWith(value, "timestamp") ~ 'datetime',
+  startsWith(allColumns$type, "timestamp") ~ 'datetime',
   TRUE ~ 'character'
 )
 
