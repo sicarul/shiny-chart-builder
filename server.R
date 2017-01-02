@@ -380,8 +380,7 @@ shinyServer(function(input, output, session) {
       if(input$lineGroup != ''){
         data = select_(origData, .dots=setNames(c(input$lineX, input$lineY, input$lineGroup), c("x", "y", 'g')))
       }else{
-        data = select_(origData, .dots=setNames(c(input$lineX, input$lineY), c("x", "y"))) %>%
-          mutate('g'=input$lineY)
+        data = select_(origData, .dots=setNames(c(input$lineX, input$lineY), c("x", "y")))
       }
       
       ## Transform date
@@ -405,14 +404,20 @@ shinyServer(function(input, output, session) {
       }
       
       incProgress(0.2)
-        
-      data=group_by(data, x, g) %>% filter(!is.na(y))
+      
+      if(input$lineGroup != ''){
+        data=group_by(data, x, g)
+      }else{
+        data=group_by(data, x)
+      }
+      data = filter(data, !is.na(y))
+      
       
       if(input$lineSum=='count'){
         if(yType == 'character'){
           data = summarize(data, y=sum(ifelse(y != '', 1, 0)))
         }else{
-          data = tally(data) %>% select(x, g, y=n)
+          data = tally(data) %>% dplyr::rename(y=n)
         }
       }else if(input$lineSum=='sum'){
         if(yType == 'boolean'){
@@ -454,7 +459,10 @@ shinyServer(function(input, output, session) {
       
       incProgress(0.3)
       
-      data = collect(data, n=Inf) %>% arrange(g, x) %>% filter(!is.na(x))
+      data = collect(data, n=Inf) %>% arrange(x) %>% filter(!is.na(x))
+      if(input$lineGroup == ''){
+        data$g = input$lineY
+      }
       
       incProgress(0.25)
       
