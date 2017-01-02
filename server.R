@@ -1,4 +1,5 @@
 library(ggplot2)
+library(lubridate)
 source('config.R')
 
 shinyServer(function(input, output, session) {
