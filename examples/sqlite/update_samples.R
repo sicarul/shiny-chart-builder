@@ -33,7 +33,7 @@ downloadSample = function(tab){
 #Download 5k sample for all tables
 res = by(allTables, 1:nrow(allTables), function(row){
   tab = row$tablename
-  
+
   r <- NULL
   attempt <- 1
   while( is.null(r) && attempt <= 3 ) {
@@ -49,8 +49,10 @@ res = by(allTables, 1:nrow(allTables), function(row){
 #Delete old samples of non-existent tables
 delete = data.frame(tablename=gsub('.rda', '', list.files('tables/', pattern="*.rda"))) %>% anti_join(allTables, by='tablename')
 
-res = by(delete, 1:nrow(delete), function(row){
-  tab = row$tablename
-  
-  file.remove(paste0('tables/',tab,'.rda'))
-})
+if(nrow(delete) > 0){
+  res = by(delete, 1:nrow(delete), function(row){
+    tab = row$tablename
+
+    file.remove(paste0('tables/',tab,'.rda'))
+  })
+}
