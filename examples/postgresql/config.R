@@ -14,7 +14,7 @@ queryDb = function(query){
 }
 
 #UI customizations
-UI_HEADER = commonHeader()
-UI_THEME=baseTheme()
-UI_STYLE=baseStyle()
+UI_HEADER=HTML("")
+UI_THEME=NA
+UI_STYLE=HTML("")
 UI_TITLE="Chart builder"
